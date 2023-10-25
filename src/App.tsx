@@ -1,9 +1,10 @@
-import { Button } from "./components/ui/button";
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 
 const App = () => {
   return (
-    <div className="">
-      <Button>Click me</Button>
+    <div className="  h-screen flex justify-center items-center">
+      <Login />
     </div>
   );
 };

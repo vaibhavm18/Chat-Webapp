@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { loginType } from '@/lib/types';
-import { loginSchema } from '@/lib/schema';
+import { registerType } from '@/lib/types';
+import { registerSchema } from '@/lib/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -13,20 +13,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-const defaultValues: loginType = {
+const defaultValues: registerType = {
   username: '',
   password: '',
+  name: '',
 };
 
-const formField = ['username', 'password'] as const;
+const formField = ['name', 'username', 'password'] as const;
 
-export default function Login() {
-  const form = useForm<loginType>({
-    resolver: zodResolver(loginSchema),
+export default function Register() {
+  const form = useForm<registerType>({
+    resolver: zodResolver(registerSchema),
     defaultValues: defaultValues,
   });
 
-  const onSubmit = (value: loginType) => {
+  const onSubmit = (value: registerType) => {
     console.log(value);
   };
 
@@ -38,11 +39,11 @@ export default function Login() {
           className="flex flex-col gap-10 items-center w-full"
         >
           <div className="text-center">
-            <p className="text-2xl mb-2">Login</p>
+            <p className="text-2xl mb-2">Register</p>
             <p>
-              Didn't have an account ?{' '}
+              Already have an account ?{' '}
               <span className="text-blue-500 cursor-pointer hover:underline transition-all">
-                register here
+                login here
               </span>{' '}
             </p>
           </div>
