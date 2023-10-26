@@ -1,12 +1,21 @@
+import Auth from './pages/auth/Auth';
 import Login from './pages/auth/Login';
+import { Routes, Route } from 'react-router-dom';
 import Register from './pages/auth/Register';
 
-const App = () => {
+export default function App() {
   return (
-    <div className="  h-screen flex justify-center items-center">
-      <Login />
-    </div>
+    <Routes>
+      <Route element={<Auth />}>
+        <Route
+          path="/login"
+          Component={Login}
+        />
+        <Route
+          path="/register"
+          Component={Register}
+        />
+      </Route>
+    </Routes>
   );
-};
-
-export default App;
+}

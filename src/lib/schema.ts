@@ -13,9 +13,6 @@ export const loginSchema = z.object({
 
 export const registerSchema = z
   .object({
-    name: z
-      .string()
-      .min(4, 'Minimum character length for name is 4')
-      .max(12, 'Maximum character length for name is 12'),
+    email: z.string().email('It should be email address'),
   })
   .merge(loginSchema);

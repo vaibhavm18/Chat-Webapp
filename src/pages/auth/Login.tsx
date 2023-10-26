@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Link } from 'react-router-dom';
 
 const defaultValues: loginType = {
   username: '',
@@ -42,7 +43,7 @@ export default function Login() {
             <p>
               Didn't have an account ?{' '}
               <span className="text-blue-500 cursor-pointer hover:underline transition-all">
-                register here
+                <Link to={'/register'}>register here</Link>
               </span>{' '}
             </p>
           </div>
@@ -59,7 +60,7 @@ export default function Login() {
                     <Input
                       placeholder={label + '...'}
                       {...field}
-                      className=""
+                      className="rounded-2xl"
                     />
                   </FormControl>
                   <FormMessage />

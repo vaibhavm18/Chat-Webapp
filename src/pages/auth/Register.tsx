@@ -12,14 +12,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Link } from 'react-router-dom';
 
 const defaultValues: registerType = {
   username: '',
   password: '',
-  name: '',
+  email: '',
 };
 
-const formField = ['name', 'username', 'password'] as const;
+const formField = ['email', 'username', 'password'] as const;
 
 export default function Register() {
   const form = useForm<registerType>({
@@ -43,7 +44,7 @@ export default function Register() {
             <p>
               Already have an account ?{' '}
               <span className="text-blue-500 cursor-pointer hover:underline transition-all">
-                login here
+                <Link to={'/login'}>login here</Link>
               </span>{' '}
             </p>
           </div>
@@ -60,7 +61,8 @@ export default function Register() {
                     <Input
                       placeholder={label + '...'}
                       {...field}
-                      className=""
+                      className="rounded-2xl"
+                      type={label}
                     />
                   </FormControl>
                   <FormMessage />
