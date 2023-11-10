@@ -1,8 +1,8 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { loginType } from '@/lib/types';
-import { loginSchema } from '@/lib/schema';
-import { Button } from '@/components/ui/button';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { loginType } from "@/lib/types";
+import { loginSchema } from "@/lib/schema";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormField,
@@ -10,16 +10,18 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Link } from 'react-router-dom';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
+import { login } from "@/lib/api";
+import { useMutation } from "@tanstack/react-query";
 
 const defaultValues: loginType = {
-  username: '',
-  password: '',
+  username: "",
+  password: "",
 };
 
-const formField = ['username', 'password'] as const;
+const formField = ["username", "password"] as const;
 
 export default function Login() {
   const form = useForm<loginType>({
@@ -27,12 +29,28 @@ export default function Login() {
     defaultValues: defaultValues,
   });
 
+  const mutation = useMutation({
+    mutationFn: (credential: loginType) => {
+      return login(credential);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const onSubmit = (value: loginType) => {
     console.log(value);
+    mutation.mutate(value);
   };
 
+  // #222436
+  // #1e2030
+
   return (
-    <div className="max-w-lg w-full bg-transparent border-white border shadow-blur backdrop-blur-lg py-8 px-8 rounded-3xl">
+    <div className="bg-[#1e2030] text-[#BCD1EF]  max-w-lg w-full border-white border shadow-blur backdrop-blur-lg py-8 px-8 rounded-3xl">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -41,10 +59,10 @@ export default function Login() {
           <div className="text-center">
             <p className="text-2xl mb-2">Login</p>
             <p>
-              Didn't have an account ?{' '}
+              Don't have an account ?{" "}
               <span className="text-blue-500 cursor-pointer hover:underline transition-all">
-                <Link to={'/register'}>register here</Link>
-              </span>{' '}
+                <Link to={"/register"}>register here</Link>
+              </span>{" "}
             </p>
           </div>
 
@@ -58,7 +76,7 @@ export default function Login() {
                   <FormLabel className="text-lg">{label}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={label + '...'}
+                      placeholder={label + "..."}
                       {...field}
                       className="rounded-2xl"
                     />
@@ -69,10 +87,7 @@ export default function Login() {
             />
           ))}
 
-          <Button
-            type="submit"
-            className="rounded-xl"
-          >
+          <Button type="submit" className="rounded-xl">
             Submit
           </Button>
         </form>
