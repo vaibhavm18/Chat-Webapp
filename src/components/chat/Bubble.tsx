@@ -8,7 +8,7 @@ type Props = {
 export default function Bubble(props: Props) {
   const { chatSide, chat } = props;
   return (
-    <div className={`chat ${chatSide}`}>
+    <div className={`chat text-xs xs:text-sm ${chatSide}`}>
       <div className="chat-image avatar">
         <Profile />
       </div>

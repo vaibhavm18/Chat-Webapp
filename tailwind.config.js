@@ -18,7 +18,7 @@ module.exports = {
     extend: {
       boxShadow: { blur: "0 0 10px rgba(0, 0, 0, 0.2)" },
       screens: {
-        xs: "400px",
+        xs: "480px",
       },
       colors: {
         "primary-500": "#877EFF",
