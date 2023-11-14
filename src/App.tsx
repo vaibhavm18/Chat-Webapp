@@ -2,8 +2,8 @@ import Auth from "./pages/auth/Auth";
 import Login from "./pages/auth/Login";
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/auth/Register";
-import { Authenticate } from "./util/Authenticate";
-import { Groups } from "./pages/groups/Groups";
+import { Home } from "./pages/Home";
+import { Authenticate } from "./pages/Authenticate";
 
 export default function App() {
   return (
@@ -13,7 +13,7 @@ export default function App() {
         <Route path="/register" Component={Register} />
       </Route>
       <Route element={<Authenticate />}>
-        <Route path="/" Component={Groups} />
+        <Route path="/" Component={Home} />
       </Route>
     </Routes>
   );

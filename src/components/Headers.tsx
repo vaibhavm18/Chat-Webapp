@@ -1,5 +1,5 @@
-import { IoIosNotifications } from "react-icons/io";
-import Profile from "./Profile";
+import ProfilePhoto from "./Profile";
+import { Notification } from "./Notification";
 
 export default function Headers() {
   return (
@@ -7,8 +7,8 @@ export default function Headers() {
       <p className="cursor-pointer">Socials</p>
       <nav className="flex gap-20 items-center">
         <div className="flex gap-6 items-center relative ">
-          <IoIosNotifications className="text-3xl cursor-pointer hover:scale-105 transition-all " />
-          <Profile />
+          <Notification />
+          <ProfilePhoto />
         </div>
       </nav>
     </header>

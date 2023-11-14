@@ -1,9 +1,9 @@
+import { useState } from "react";
 import Headers from "@/components/Headers";
 import ChatRoom from "@/components/chat/ChatRoom";
 import Inbox from "@/components/inbox/Inbox";
-import { useState } from "react";
 
-export const Authenticate = () => {
+export const Home = () => {
   const [isHidden, setIsHidden] = useState(false);
   return (
     <main className="bg-[#1e2030] h-screen text-[#BCD1EF] px-4 py-6 ">
