@@ -20,6 +20,11 @@ export const Notification = () => {
           </DropdownMenuLabel>
           <div className="flex flex-col gap-4 ">
             <Request />
+            <Request />
+            <Request />
+            <Request />
+            <Request />
+            <Request />
             <div className="w-full h-6"></div>
           </div>
         </div>

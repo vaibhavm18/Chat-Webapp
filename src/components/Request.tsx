@@ -3,13 +3,13 @@ import { Button } from "./ui/button";
 
 export const Request = () => {
   return (
-    <div className="px-2 py-3  flex flex-col gap-2 bg-[#1e2030] border rounded-xl">
+    <div className="px-2 py-3  flex flex-col gap-4 bg-[#1e2030] border rounded-xl">
       <p>
-        Are you want to accept request from{" "}
+        Accept friend request from{"  "}
         <Profile>
           <span className="hover:underline transition-all cursor-pointer">
             {" "}
-            @vaibhav018{" "}
+            @vaibhav018
           </span>
         </Profile>
         ?
