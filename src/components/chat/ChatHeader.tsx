@@ -1,10 +1,13 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Profile from "../Profile";
+import ProfilePhoto from "../ProfilePhoto";
+import { Profile } from "../Profile";
 
 export default function ChatHeader() {
   return (
     <div className="relative py-2 px-2 text-sm  xs:text-lg flex gap-3 sm:gap-6 items-center bg-[#222436] rounded-2xl ">
-      <Profile />
+      <Profile>
+        <ProfilePhoto />
+      </Profile>
       <div className="flex flex-col ">
         <span>username username</span>
         <span>last seen: 12:08</span>

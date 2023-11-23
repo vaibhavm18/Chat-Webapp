@@ -1,5 +1,23 @@
-export default function ProfilePhoto() {
+import { ReactNode } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+type Props = {
+  children: ReactNode;
+};
+export const Profile = ({ children }: Props) => {
   return (
-    <div className="w-6 h-6 xs:w-10 xs:h-10 rounded-full bg-neutral-50 cursor-pointer hover:scale-105 transition-all"></div>
+    <DropdownMenu>
+      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+      <DropdownMenuContent className="w-[230px] h-[150px] border rounded-3xl"></DropdownMenuContent>
+    </DropdownMenu>
   );
-}
+};
+
+/*         <span className="hover:underline transition-all cursor-pointer">
+          {" "}
+          @vaibhav018{" "}
+        </span>
+ */

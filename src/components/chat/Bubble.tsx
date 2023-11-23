@@ -1,4 +1,5 @@
-import Profile from "../Profile";
+import { Profile } from "../Profile";
+import ProfilePhoto from "../ProfilePhoto";
 
 type chatSide = "chat-start" | "chat-end";
 type Props = {
@@ -10,7 +11,9 @@ export default function Bubble(props: Props) {
   return (
     <div className={`chat text-xs xs:text-sm ${chatSide}`}>
       <div className="chat-image avatar">
-        <Profile />
+        <Profile>
+          <ProfilePhoto />
+        </Profile>
       </div>
       <div className="mx-4 mb-1 chat-header">
         username abc

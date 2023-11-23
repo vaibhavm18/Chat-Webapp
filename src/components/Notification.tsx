@@ -5,6 +5,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Request } from "./Request";
 
 export const Notification = () => {
   return (
@@ -15,20 +16,10 @@ export const Notification = () => {
       <DropdownMenuContent className=" max-w-md w-80 h-[500px] px-2  border border-white rounded-2xl flex flex-col gap-4 mt-4 bg-[#222436] relative overflow-auto">
         <div className="absolute top-0 left-2 bottom-4 right-2 ">
           <DropdownMenuLabel className="text-center py-3">
-            My Account
+            Notification
           </DropdownMenuLabel>
           <div className="flex flex-col gap-4 ">
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
-            <div className="bg-[#1e2030] py-1 px-2">hello</div>
+            <Request />
             <div className="w-full h-6"></div>
           </div>
         </div>
