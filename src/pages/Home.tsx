@@ -1,7 +1,8 @@
-import { useState } from "react";
 import Headers from "@/components/Headers";
 import ChatRoom from "@/components/chat/ChatRoom";
-import Inbox from "@/components/inbox/Inbox";
+import InboxHeder from "@/components/inbox/InboxHeader";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 export const Home = () => {
   const [isHidden, setIsHidden] = useState(false);
@@ -19,7 +20,8 @@ export const Home = () => {
                 setIsHidden((prev) => !prev);
               }}
             >
-              <Inbox />
+              <InboxHeder />
+              <Outlet />
             </div>
             <div
               className={`bg-[#1e2030] ${
