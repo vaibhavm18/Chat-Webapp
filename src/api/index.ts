@@ -1,4 +1,4 @@
-import {axiosInstance} from './base';
+import { axiosInstance } from "./base";
 
 // auth
 type login = {
@@ -12,25 +12,33 @@ type signup = {
   password: string;
 };
 
-export const login = async (data: login) =>
-  await axiosInstance.post('/auth/login', data);
+export const login = async (data: login) => {
+  const res = await axiosInstance.post("/auth/login", data);
+  return res.data;
+};
 
-export const signup = async (data: signup) =>
-  await axiosInstance.post('/auth/login', data);
+export const signup = async (data: signup) => {
+  const res = await axiosInstance.post("/auth/login", data);
+  return res.data;
+};
 
-export const authenticate = async () =>
-  await axiosInstance.get('/auth/authenticate');
+export const authenticate = async () => {
+  const res = await axiosInstance.get("/auth/authenticate");
+  return res.data;
+};
 
 // user
-export const profile = async () => await axiosInstance.get('/user/profile');
+export const profile = async () => await axiosInstance.get("/user/profile");
 export const notification = async () =>
-  await axiosInstance.get('/user/notification');
+  await axiosInstance.get("/user/notification");
 
 // personal
-export const allFriends = async () => await axiosInstance.get('/personal');
+export const allFriends = async () => await axiosInstance.get("/personal");
+export const getAllUsers = async () =>
+  await axiosInstance.get("/personal/users");
 
 export const friendRequest = async (id: string) =>
-  await axiosInstance.post('/personal/create', {friendId: id});
+  await axiosInstance.post("/personal/create", { friendId: id });
 
 export const acceptFriendRequest = async (id: string) =>
   await axiosInstance.post(`/personal/accept/${id}`);
@@ -39,7 +47,7 @@ export const declineFriendRequest = async (id: string) =>
   await axiosInstance.delete(`/personal/decline/${id}`);
 
 export const sendMessage = async (id: string, message: string) =>
-  await axiosInstance.put(`/personal/chat/${id}`, {message});
+  await axiosInstance.put(`/personal/chat/${id}`, { message });
 
 export const getChats = async (id: string) =>
   await axiosInstance.get(`/personal/chat/${id}`);
@@ -66,7 +74,7 @@ export const joinGroup = async (id: string) =>
   await axiosInstance.put(`/group/join/${id}`);
 
 export const removeGroupMember = async (groupId: string, userId: string) =>
-  await axiosInstance.post(`/group/remove/${groupId}`, {userId});
+  await axiosInstance.post(`/group/remove/${groupId}`, { userId });
 
 export const deleteGroupMember = async (id: string) =>
   await axiosInstance.post(`/group/delete/${id}`);
@@ -75,7 +83,7 @@ export const leaveGroupMember = async (id: string) =>
   await axiosInstance.post(`/group/leave/${id}`);
 
 export const sendGroupMessage = async (id: string, message: string) =>
-  await axiosInstance.put(`/group/chats/${id}`, {message});
+  await axiosInstance.put(`/group/chats/${id}`, { message });
 
 export const getGroupMessage = async (id: string) =>
   await axiosInstance.get(`/group/chats/${id}`);

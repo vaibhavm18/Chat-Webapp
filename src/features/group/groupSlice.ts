@@ -1,11 +1,11 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface GroupState {
-  groups: group[];
+  groups: groupType[];
 }
 
-type group = {
-  id: string;
+export type groupType = {
+  _id: string;
   groupname: string;
 };
 
@@ -14,29 +14,29 @@ const initialState: GroupState = {
 };
 
 type userId = {
-  id: string;
+  _id: string;
 };
 
 export const groupSlice = createSlice({
-  name: 'group',
+  name: "group",
   initialState,
   reducers: {
-    addGroup: (state, {payload}: PayloadAction<group[]>) => {
+    addGroup: (state, { payload }: PayloadAction<groupType[]>) => {
       if (payload.length === 0) {
         return;
       }
-      payload.forEach(val => {
+      payload.forEach((val) => {
         state.groups.push(val);
       });
     },
-    removeGroup: (state, {payload}: PayloadAction<userId>) => {
-      state.groups = state.groups.filter(val => val.id !== payload.id);
+    removeGroup: (state, { payload }: PayloadAction<userId>) => {
+      state.groups = state.groups.filter((val) => val._id !== payload._id);
     },
-    removeAllGroup: state => {
+    removeAllGroup: (state) => {
       state.groups = [];
     },
   },
 });
 
-export const {addGroup, removeGroup, removeAllGroup} = groupSlice.actions;
+export const { addGroup, removeGroup, removeAllGroup } = groupSlice.actions;
 export default groupSlice.reducer;
