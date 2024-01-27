@@ -1,9 +1,11 @@
+import { Route, Routes } from "react-router-dom";
+import { Authenticate } from "./pages/Authenticate";
+import Groups from "./pages/Groups";
+import { Home } from "./pages/Home";
+import Personal from "./pages/Personal";
 import Auth from "./pages/auth/Auth";
 import Login from "./pages/auth/Login";
-import { Routes, Route } from "react-router-dom";
 import Register from "./pages/auth/Register";
-import { Home } from "./pages/Home";
-import { Authenticate } from "./pages/Authenticate";
 
 export default function App() {
   return (
@@ -13,7 +15,11 @@ export default function App() {
         <Route path="/register" Component={Register} />
       </Route>
       <Route element={<Authenticate />}>
-        <Route path="/" Component={Home} />
+        <Route path="/" Component={Home}>
+          {/* <Route path="/:id" Component={A} /> */}
+          <Route path="/groups" Component={Groups} />
+          <Route path="/personal" Component={Personal} />
+        </Route>
       </Route>
     </Routes>
   );
