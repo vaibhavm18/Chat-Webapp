@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface UserState {
   users: user[];
@@ -7,8 +7,6 @@ export interface UserState {
 type user = {
   _id: string;
   username: string;
-  friends: number;
-  groups: number;
 };
 
 const initialState: UserState = {
@@ -20,26 +18,26 @@ type remove = {
 };
 
 export const userListSlice = createSlice({
-  name: 'userslist',
+  name: "userslist",
   initialState,
   reducers: {
-    addListUsers: (state, {payload}: PayloadAction<user[]>) => {
+    addListUsers: (state, { payload }: PayloadAction<user[]>) => {
       if (payload.length === 0) {
         return;
       }
-      payload.forEach(val => {
+      payload.forEach((val) => {
         state.users.push(val);
       });
     },
-    removeListUser: (state, {payload}: PayloadAction<remove>) => {
-      state.users = state.users.filter(val => val._id !== payload._id);
+    removeListUser: (state, { payload }: PayloadAction<remove>) => {
+      state.users = state.users.filter((val) => val._id !== payload._id);
     },
-    removeAllListUsers: state => {
+    removeAllListUsers: (state) => {
       state.users = [];
     },
   },
 });
 
-export const {addListUsers, removeListUser, removeAllListUsers} =
+export const { addListUsers, removeListUser, removeAllListUsers } =
   userListSlice.actions;
 export default userListSlice.reducer;
