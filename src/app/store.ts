@@ -1,12 +1,13 @@
-import {configureStore} from '@reduxjs/toolkit';
-import authRedcer from '../features/auth/authSlice';
-import groupChatSlice from '../features/group/chatSlice';
-import groupListSlice from '../features/group/groupListSlice';
-import groupSlice from '../features/group/groupSlice';
-import notificationSlice from '../features/notification/notificationSlice';
-import personalChatSlice from '../features/user/chatSlice';
-import userListSlice from '../features/user/userListSlice';
-import userSlice from '../features/user/userSlice';
+import chatRoomSlice from "@/features/chatroom/chatRoomSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import authRedcer from "../features/auth/authSlice";
+import groupChatSlice from "../features/group/chatSlice";
+import groupListSlice from "../features/group/groupListSlice";
+import groupSlice from "../features/group/groupSlice";
+import notificationSlice from "../features/notification/notificationSlice";
+import personalChatSlice from "../features/user/chatSlice";
+import userListSlice from "../features/user/userListSlice";
+import userSlice from "../features/user/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     groupChats: groupChatSlice,
     groupList: groupListSlice,
     notification: notificationSlice,
+    chatroom: chatRoomSlice,
   },
 });
 

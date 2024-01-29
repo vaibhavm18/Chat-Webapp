@@ -1,11 +1,11 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface NotificationState {
   notifications: notification[];
 }
 
 type notification = {
-  id: string;
+  _id: string;
   username: string;
 };
 
@@ -13,26 +13,27 @@ const initialState: NotificationState = {
   notifications: [],
 };
 
-type userId = {id: string};
+type userId = { id: string };
 export const notificationSlice = createSlice({
-  name: 'notification',
+  name: "notification",
   initialState,
   reducers: {
-    addNotification: (state, {payload}: PayloadAction<notification[]>) => {
+    addNotification: (state, { payload }: PayloadAction<notification[]>) => {
       if (payload.length === 0) {
         return;
       }
-      payload.forEach(val => {
+      payload.forEach((val) => {
         state.notifications.push(val);
       });
     },
-    removeNotification: (state, {payload}: PayloadAction<userId>) => {
+    removeNotification: (state, { payload }: PayloadAction<userId>) => {
       state.notifications = state.notifications.filter(
-        val => val.id !== payload.id,
+        (val) => val._id !== payload.id
       );
     },
   },
 });
 
-export const {addNotification, removeNotification} = notificationSlice.actions;
+export const { addNotification, removeNotification } =
+  notificationSlice.actions;
 export default notificationSlice.reducer;
