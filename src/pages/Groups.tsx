@@ -1,7 +1,7 @@
 import { RootState } from "@/app/store";
 import GroupList from "@/components/inbox/GroupList";
 import NewGroup from "@/components/inbox/NewGroup";
-import Preview from "@/components/inbox/UserPreview";
+import Preview from "@/components/inbox/Preview";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 

@@ -1,15 +1,17 @@
 import { RootState } from "@/app/store";
+import Preview from "@/components/inbox/Preview";
 import UserList from "@/components/inbox/UserList";
-import Preview from "@/components/inbox/UserPreview";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Personal() {
   const users = useSelector((state: RootState) => state.personal.users);
   const [userListOpen, setUserListOpen] = useState(false);
+
   const hidePersonalList = () => {
     setUserListOpen(false);
   };
+
   return (
     <>
       {!userListOpen ? (
