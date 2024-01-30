@@ -7,8 +7,6 @@ export interface GroupState {
 type group = {
   _id: string;
   groupname: string;
-  admin: string;
-  users: number;
 };
 
 const initialState: GroupState = {

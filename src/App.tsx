@@ -16,7 +16,6 @@ export default function App() {
       </Route>
       <Route element={<Authenticate />}>
         <Route path="/" Component={Home}>
-          {/* <Route path="/:id" Component={A} /> */}
           <Route path="/groups" Component={Groups} />
           <Route path="/personal" Component={Personal} />
         </Route>

@@ -3,10 +3,12 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 type ChatRoomState = {
   typeOfChat: "Group" | "Personal";
   id: string | null;
+  name: string | null;
 };
 
 const initialState: ChatRoomState = {
   id: null,
+  name: null,
   typeOfChat: "Personal",
 };
 
@@ -17,6 +19,7 @@ const chatRoomSlice = createSlice({
     setChatRoom: (state, { payload }: PayloadAction<ChatRoomState>) => {
       state.id = payload.id;
       state.typeOfChat = payload.typeOfChat;
+      state.name = payload.name;
     },
   },
 });
