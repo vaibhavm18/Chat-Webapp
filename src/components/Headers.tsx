@@ -1,6 +1,5 @@
-import ProfilePhoto from "./ProfilePhoto";
+import Logout from "./Logout";
 import { Notification } from "./Notification";
-import { Profile } from "./Profile";
 
 export default function Headers() {
   return (
@@ -13,9 +12,7 @@ export default function Headers() {
       <nav className="flex gap-20 items-center">
         <div className="flex gap-6 items-center relative ">
           <Notification />
-          <Profile>
-            <ProfilePhoto />
-          </Profile>
+          <Logout />
         </div>
       </nav>
     </header>

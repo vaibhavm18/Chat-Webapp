@@ -30,10 +30,10 @@ const personalChatSlice = createSlice({
   initialState,
   reducers: {
     addNewChat: (state, { payload }: PayloadAction<message>) => {
-      if (payload._id in state.newChats) {
-        state.newChats[payload._id].push(payload);
+      if (payload.messageId in state.newChats) {
+        state.newChats[payload.messageId].push(payload);
       } else {
-        state.newChats[payload._id] = [payload];
+        state.newChats[payload.messageId] = [payload];
       }
     },
     addOldChats: (state, { payload }: PayloadAction<message[]>) => {
@@ -41,11 +41,11 @@ const personalChatSlice = createSlice({
         return;
       }
 
-      if (!(payload[0]._id in state.newChats)) {
-        state.newChats[payload[0]._id] = [];
+      if (!(payload[0].messageId in state.newChats)) {
+        state.newChats[payload[0].messageId] = [];
       }
       payload.forEach((val) => {
-        state.newChats[payload[0]._id].push(val);
+        state.newChats[payload[0].messageId].push(val);
       });
     },
   },

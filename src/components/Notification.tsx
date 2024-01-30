@@ -1,13 +1,18 @@
+import { RootState } from "@/app/store";
 import { IoIosNotifications } from "react-icons/io";
+import { useSelector } from "react-redux";
+import { Request } from "./Request";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Request } from "./Request";
 
 export const Notification = () => {
+  const notifications = useSelector(
+    (state: RootState) => state.notification.notifications
+  );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -19,12 +24,9 @@ export const Notification = () => {
             Notification
           </DropdownMenuLabel>
           <div className="flex flex-col gap-4 ">
-            <Request />
-            <Request />
-            <Request />
-            <Request />
-            <Request />
-            <Request />
+            {notifications.map((val) => (
+              <Request key={val._id} id={val._id} username={val.username} />
+            ))}
             <div className="w-full h-6"></div>
           </div>
         </div>

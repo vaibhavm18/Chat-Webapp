@@ -1,13 +1,28 @@
-import Input from './Input';
-import ChatHeader from './ChatHeader';
-import ChatBody from './ChatBody';
+import { RootState } from "@/app/store";
+import GroupChat from "@/components/chat/GroupChat";
+import PersonalChat from "@/components/chat/PersonalChat";
+import { useSelector } from "react-redux";
 
 export default function ChatRoom() {
+  const { id, typeOfChat, name } = useSelector(
+    (state: RootState) => state.chatroom
+  );
+
+  if (!id || !name) {
     return (
-        <div className="flex flex-col gap-3 h-full ">
-            <ChatHeader />
-            <ChatBody />
-            <Input />
-        </div>
+      <p className="flex items-center justify-center h-full text-2xl">
+        No Chat Available
+      </p>
     );
+  }
+
+  return (
+    <>
+      {typeOfChat === "Group" ? (
+        <GroupChat chatId={id} chatName={name} />
+      ) : (
+        <PersonalChat chatId={id} chatName={name} />
+      )}
+    </>
+  );
 }

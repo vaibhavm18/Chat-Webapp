@@ -2,22 +2,34 @@ import { RootState } from "@/app/store";
 import GroupList from "@/components/inbox/GroupList";
 import NewGroup from "@/components/inbox/NewGroup";
 import Preview from "@/components/inbox/Preview";
+import { setChatRoom } from "@/features/chatroom/chatRoomSlice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Groups() {
+  const dispatch = useDispatch();
   const groups = useSelector((state: RootState) => state.group.groups);
   const [openList, setOpenList] = useState(false);
   const hideGroupList = () => {
     setOpenList(false);
   };
+
+  const openChat = (id: string, username: string) => {
+    dispatch(setChatRoom({ id, name: username, typeOfChat: "Group" }));
+  };
+
   return (
     <>
       {!openList ? (
         <div className=" flex-grow bg-[#222436] rounded-lg relative overflow-auto py-4">
           <div className="absolute  m-2 left-0 right-0 top-0 grid grid-cols-1 gap-2">
             {groups.map((val) => (
-              <Preview _id={val._id} username={val.groupname} key={val._id} />
+              <Preview
+                _id={val._id}
+                username={val.groupname}
+                key={val._id}
+                openChat={openChat}
+              />
             ))}
             <div className="h-6"></div>
             <div className="flex items-center justify-center gap-4">

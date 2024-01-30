@@ -1,7 +1,12 @@
 import { Profile } from "./Profile";
 import { Button } from "./ui/button";
 
-export const Request = () => {
+type Props = {
+  username: string;
+  id: string;
+};
+
+export const Request = ({ username, id }: Props) => {
   return (
     <div className="px-2 py-3  flex flex-col gap-4 bg-[#1e2030] border rounded-xl">
       <p>
@@ -9,7 +14,7 @@ export const Request = () => {
         <Profile>
           <span className="hover:underline transition-all cursor-pointer">
             {" "}
-            @vaibhav018
+            @{username}
           </span>
         </Profile>
         ?
