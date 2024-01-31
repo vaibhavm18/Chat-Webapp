@@ -19,6 +19,7 @@ export default function Personal() {
     dispatch(setChatRoom({ id, name: username, typeOfChat: "Personal" }));
     dispatch(chatOpen());
   };
+
   return (
     <>
       {!userListOpen ? (
