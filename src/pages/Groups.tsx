@@ -3,6 +3,7 @@ import GroupList from "@/components/inbox/GroupList";
 import NewGroup from "@/components/inbox/NewGroup";
 import Preview from "@/components/inbox/Preview";
 import { setChatRoom } from "@/features/chatroom/chatRoomSlice";
+import { chatOpen } from "@/features/responsive/responsiveSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,6 +17,7 @@ export default function Groups() {
 
   const openChat = (id: string, username: string) => {
     dispatch(setChatRoom({ id, name: username, typeOfChat: "Group" }));
+    dispatch(chatOpen());
   };
 
   return (

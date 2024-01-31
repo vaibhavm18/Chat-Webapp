@@ -2,6 +2,7 @@ import { RootState } from "@/app/store";
 import Preview from "@/components/inbox/Preview";
 import UserList from "@/components/inbox/UserList";
 import { setChatRoom } from "@/features/chatroom/chatRoomSlice";
+import { chatOpen } from "@/features/responsive/responsiveSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,6 +17,7 @@ export default function Personal() {
 
   const openChat = (id: string, username: string) => {
     dispatch(setChatRoom({ id, name: username, typeOfChat: "Personal" }));
+    dispatch(chatOpen());
   };
   return (
     <>

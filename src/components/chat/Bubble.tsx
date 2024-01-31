@@ -19,7 +19,7 @@ export default function Bubble({ chat, chatSide, username }: Props) {
         {username}
         <time className="ml-4 text-xs opacity-50">12:45</time>
       </div>
-      <div className="chat-bubble bg-[#1e2030] ">{chat}</div>
+      <div className="chat-bubble break-words bg-[#1e2030] ">{chat}</div>
     </div>
   );
 }

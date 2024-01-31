@@ -9,6 +9,10 @@ type Props = {
 export default function Input({ chatId, sendMessage }: Props) {
   const [value, setValue] = useState("");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length >= 80) {
+      setValue(e.target.value.slice(0, 80));
+      return;
+    }
     setValue(e.target.value);
   };
   return (

@@ -1,4 +1,5 @@
 import chatRoomSlice from "@/features/chatroom/chatRoomSlice";
+import responsiveSlice from "@/features/responsive/responsiveSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import authRedcer from "../features/auth/authSlice";
 import groupChatSlice from "../features/group/chatSlice";
@@ -20,6 +21,7 @@ export const store = configureStore({
     groupList: groupListSlice,
     notification: notificationSlice,
     chatroom: chatRoomSlice,
+    responsive: responsiveSlice,
   },
 });
 

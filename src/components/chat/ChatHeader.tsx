@@ -1,3 +1,4 @@
+import { closeChat } from "@/features/responsive/responsiveSlice";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -7,15 +8,22 @@ import {
   AlertDialogTrigger,
 } from "@radix-ui/react-alert-dialog";
 import { MdOutlineLogout } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import { Profile } from "../Profile";
 import ProfilePhoto from "../ProfilePhoto";
 import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
+import { Button } from "../ui/button";
 
 type Props = {
   username: string;
   id: string;
 };
 export default function ChatHeader({ username, id }: Props) {
+  const dispatch = useDispatch();
+
+  const hideChat = () => {
+    dispatch(closeChat());
+  };
   return (
     <div className="relative py-2 px-2 text-sm  xs:text-lg flex gap-3 sm:gap-6 items-center bg-[#222436] rounded-2xl ">
       <Profile>
@@ -23,7 +31,10 @@ export default function ChatHeader({ username, id }: Props) {
       </Profile>
       <span>{username}</span>
       <AlertDialog>
-        <span className="absolute right-4">
+        <span className="absolute right-4 flex gap-6">
+          <Button variant={"ghost"} onClick={hideChat}>
+            {"<"}-
+          </Button>
           <AlertDialogTrigger>
             <MdOutlineLogout className={"text-lg"} />
           </AlertDialogTrigger>
