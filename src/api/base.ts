@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://example.com/api";
+const API_BASE_URL = "https://social-dc1i.onrender.com/api/v1";
 
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -11,6 +11,10 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {

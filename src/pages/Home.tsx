@@ -9,7 +9,7 @@ export const Home = () => {
   const isHidden = useSelector((state: RootState) => state.responsive.chatOpen);
 
   return (
-    <main className="bg-[#1e2030] h-[96vh] lg:h-screen text-[#BCD1EF] px-4 py-6 ">
+    <main className="bg-[#1e2030] h-[94vh] lg:h-screen text-[#BCD1EF] px-4 py-6 ">
       <section className=" max-w-xl lg:max-w-7xl mx-auto h-full  flex flex-col">
         <Headers />
         <div className="flex-grow bg-[#222436] mt-6 rounded-2xl p-3">

@@ -1,7 +1,11 @@
+import { notification } from "@/api";
 import { RootState } from "@/app/store";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { IoIosNotifications } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Request } from "./Request";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,27 +14,54 @@ import {
 } from "./ui/dropdown-menu";
 
 export const Notification = () => {
+  const dispatch = useDispatch();
+  const [enable, setEnable] = useState(true);
   const notifications = useSelector(
     (state: RootState) => state.notification.notifications
   );
+
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ["notification"],
+    enabled: enable,
+    queryFn: async () => await notification(),
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log(data.data);
+      setEnable(false);
+    }
+  }, [data]);
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <IoIosNotifications className="text-3xl cursor-pointer hover:scale-105 transition-all " />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className=" max-w-md w-80 h-[500px] px-2  border border-white rounded-2xl flex flex-col gap-4 mt-4 bg-[#222436] relative overflow-auto">
-        <div className="absolute top-0 left-2 bottom-4 right-2 ">
-          <DropdownMenuLabel className="text-center py-3">
-            Notification
-          </DropdownMenuLabel>
-          <div className="flex flex-col gap-4 ">
-            {notifications.map((val) => (
-              <Request key={val._id} id={val._id} username={val.username} />
-            ))}
-            <div className="w-full h-6"></div>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <IoIosNotifications className="text-3xl cursor-pointer hover:scale-105 transition-all " />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className=" max-w-md w-80 h-[500px] px-2  border border-white rounded-2xl flex flex-col gap-4 mt-4 bg-[#222436] relative overflow-auto">
+          <div className="absolute top-0 left-2 bottom-4 right-2 ">
+            <DropdownMenuLabel className="text-center py-3">
+              Notification
+            </DropdownMenuLabel>
+            <div className="flex flex-col gap-4 ">
+              {notifications?.length === 0 && (
+                <Button
+                  className="mt-10"
+                  onClick={() => {
+                    setEnable(true);
+                  }}
+                >
+                  Reload
+                </Button>
+              )}
+              {notifications.map((val) => (
+                <Request key={val._id} id={val._id} username={val.username} />
+              ))}
+              <div className="w-full h-6"></div>
+            </div>
           </div>
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 };
