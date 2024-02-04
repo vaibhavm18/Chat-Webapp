@@ -25,6 +25,11 @@ export const userListSlice = createSlice({
       if (payload.length === 0) {
         return;
       }
+
+      if (state.users.length !== 0) {
+        return;
+      }
+
       payload.forEach((val) => {
         state.users.push(val);
       });
@@ -40,4 +45,5 @@ export const userListSlice = createSlice({
 
 export const { addListUsers, removeListUser, removeAllListUsers } =
   userListSlice.actions;
+
 export default userListSlice.reducer;

@@ -31,7 +31,7 @@ export const authSlice = createSlice({
       }
     },
 
-    logout: (state) => {
+    removeCredential: (state) => {
       state.isLogin = false;
       state.token = null;
       state.username = null;
@@ -46,5 +46,5 @@ export const isAuthenticated = (state: { auth: AuthState }) =>
   state.auth.isLogin;
 export const getToken = (state: { auth: AuthState }) => state.auth.token;
 
-export const { setCredential, logout } = authSlice.actions;
+export const { setCredential, removeCredential } = authSlice.actions;
 export default authSlice.reducer;

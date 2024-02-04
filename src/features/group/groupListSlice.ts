@@ -6,7 +6,7 @@ export interface GroupState {
 
 type group = {
   _id: string;
-  groupname: string;
+  name: string;
 };
 
 const initialState: GroupState = {
@@ -25,13 +25,24 @@ export const groupListSlice = createSlice({
       if (payload.length === 0) {
         return;
       }
+
+      if (state.groups.length !== 0) {
+        return;
+      }
+
       payload.forEach((val) => {
         state.groups.push(val);
       });
     },
+
+    addGroupList: (state, { payload }: PayloadAction<group>) => {
+      state.groups.push(payload);
+    },
+
     removeGroupList: (state, { payload }: PayloadAction<userId>) => {
       state.groups = state.groups.filter((val) => val._id !== payload._id);
     },
+
     removeAllGroupList: (state) => {
       state.groups = [];
     },

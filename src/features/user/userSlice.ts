@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface UserState {
   users: user[];
@@ -17,26 +17,30 @@ type remove = {
   _id: string;
 };
 
+type input = {
+  _id: string;
+};
+
 export const userSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState,
   reducers: {
-    addUsers: (state, {payload}: PayloadAction<user[]>) => {
+    addUsers: (state, { payload }: PayloadAction<user[]>) => {
       if (payload.length === 0) {
         return;
       }
-      payload.forEach(val => {
+      payload.forEach((val) => {
         state.users.push(val);
       });
     },
-    removeUser: (state, {payload}: PayloadAction<remove>) => {
-      state.users = state.users.filter(val => val._id !== payload._id);
+    removeUser: (state, { payload }: PayloadAction<remove>) => {
+      state.users = state.users.filter((val) => val._id !== payload._id);
     },
-    removeAllUsers: state => {
+    removeAllUsers: (state) => {
       state.users = [];
     },
   },
 });
 
-export const {addUsers, removeUser, removeAllUsers} = userSlice.actions;
+export const { addUsers, removeUser, removeAllUsers } = userSlice.actions;
 export default userSlice.reducer;
