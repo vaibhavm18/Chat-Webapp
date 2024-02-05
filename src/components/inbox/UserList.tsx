@@ -1,7 +1,10 @@
+import { friendRequest, getAllUsers } from "@/api";
 import { RootState } from "@/app/store";
-import { removeListUser } from "@/features/user/userListSlice";
-import { addUsers } from "@/features/user/userSlice";
+import { addListUsers, removeListUser } from "@/features/user/userListSlice";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "../ui/button";
 import Preview from "./Preview";
 
 type Props = {
@@ -11,9 +14,32 @@ export default function UserList({ hidePersonalList }: Props) {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.userList.users);
 
-  const addToPersonal = (id: string, username: string) => {
-    dispatch(addUsers([{ _id: id, username }]));
-    dispatch(removeListUser({ _id: id }));
+  const { isLoading, data, refetch } = useQuery({
+    queryKey: ["userList"],
+    queryFn: async () => await getAllUsers(),
+    staleTime: Infinity,
+    retry: 0,
+  });
+
+  const mutation = useMutation({
+    mutationKey: ["SendRequest"],
+    mutationFn: async (id: string) => await friendRequest(id),
+  });
+
+  useEffect(() => {
+    if (data) {
+      dispatch(addListUsers(data.data.data));
+    }
+  }, [data, isLoading]);
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      dispatch(removeListUser({ _id: mutation.data.data?.data.request.to }));
+    }
+  }, [mutation.isSuccess]);
+  const addToPersonal = (id: string) => {
+    mutation.mutateAsync(id);
+    console.log(mutation.data);
   };
 
   return (
@@ -28,13 +54,22 @@ export default function UserList({ hidePersonalList }: Props) {
           />
         ))}
         <div className="h-6"></div>
-        <button
-          className="py-[5px] rounded-xl bg-gray-400 w-full
-          text-black text-lg font-medium"
-          onClick={hidePersonalList}
-        >
-          Back
-        </button>
+        <div className="flex gap-2 lg:gap-4">
+          <Button
+            className="w-full rounded-xl text-lg  bg-gray-400 hover:bg-gray-300 text-black"
+            onClick={hidePersonalList}
+          >
+            Back
+          </Button>
+          <Button
+            className="w-full rounded-xl text-lg  bg-gray-400 hover:bg-gray-300 text-black"
+            onClick={() => {
+              refetch();
+            }}
+          >
+            Refresh
+          </Button>
+        </div>
       </div>
     </div>
   );

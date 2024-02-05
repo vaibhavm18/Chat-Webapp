@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 type Props = {
   _id: string;
   username: string;
-  add?: (id: string, name: string) => void;
+  add?: (id: string) => void;
   openChat?: (id: string, name: string) => void;
 };
 
@@ -26,7 +26,7 @@ export default function Preview({ _id, username, add, openChat }: Props) {
           variant={"ghost"}
           className="absolute right-2"
           onClick={() => {
-            add(_id, username);
+            add(_id);
           }}
         >
           +
