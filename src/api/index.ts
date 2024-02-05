@@ -61,7 +61,7 @@ export const acceptFriendRequest = async (id: string) =>
 export const declineFriendRequest = async (id: string) =>
   await axiosInstance.delete(`/personal/decline/${id}`);
 
-export const sendMessage = async (id: string, message: string) =>
+export const sendPersonalMessage = async (id: string, message: string) =>
   await axiosInstance.put(`/personal/chat/${id}`, { message });
 
 export const getChats = async (id: string) =>

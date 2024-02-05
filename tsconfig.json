@@ -6,14 +6,12 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    // shadcn 
+    // shadcn
 
     "baseUrl": ".",
-       "paths": {
-         "@/*": [
-           "./src/*"
-          ]
-        },
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -29,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/components/chat/ChatBody.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

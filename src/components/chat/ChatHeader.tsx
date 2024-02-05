@@ -7,6 +7,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@radix-ui/react-alert-dialog";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { Profile } from "../Profile";
@@ -32,8 +33,8 @@ export default function ChatHeader({ username, id }: Props) {
       <span>{username}</span>
       <AlertDialog>
         <span className="absolute right-4 flex gap-6">
-          <Button variant={"ghost"} onClick={hideChat}>
-            {"<"}-
+          <Button variant={"ghost"} onClick={hideChat} className="lg:hidden">
+            <IoMdArrowRoundBack />
           </Button>
           <AlertDialogTrigger>
             <MdOutlineLogout className={"text-lg"} />
