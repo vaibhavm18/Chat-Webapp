@@ -6,7 +6,7 @@ export interface GroupState {
 
 export type groupType = {
   _id: string;
-  groupname: string;
+  name: string;
 };
 
 const initialState: GroupState = {
@@ -21,13 +21,19 @@ export const groupSlice = createSlice({
   name: "group",
   initialState,
   reducers: {
-    addGroup: (state, { payload }: PayloadAction<groupType[]>) => {
+    addGroups: (state, { payload }: PayloadAction<groupType[]>) => {
       if (payload.length === 0) {
         return;
       }
+      state.groups = [];
+
       payload.forEach((val) => {
         state.groups.push(val);
       });
+    },
+
+    singleGroup: (state, { payload }: PayloadAction<groupType>) => {
+      state.groups.push(payload);
     },
     removeGroup: (state, { payload }: PayloadAction<userId>) => {
       state.groups = state.groups.filter((val) => val._id !== payload._id);
@@ -38,5 +44,6 @@ export const groupSlice = createSlice({
   },
 });
 
-export const { addGroup, removeGroup, removeAllGroup } = groupSlice.actions;
+export const { addGroups, singleGroup, removeGroup, removeAllGroup } =
+  groupSlice.actions;
 export default groupSlice.reducer;

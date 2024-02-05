@@ -22,6 +22,19 @@ export const signup = async (data: signup) => {
   return res.data;
 };
 
+// async function createUsers(n: number) {
+//   for (let i = 0; i < n; i++) {
+//     console.log("hello", i);
+//     await signup({
+//       email: "vaibhav60" + i + "@gmail.com",
+//       password: "123456",
+//       username: "vaibhav60" + i,
+//     });
+//   }
+// }
+
+// createUsers(9);
+
 export const authenticate = async () => {
   const res = await axiosInstance.get("/auth/authenticate");
   return res.data;
@@ -29,8 +42,10 @@ export const authenticate = async () => {
 
 // user
 export const profile = async () => await axiosInstance.get("/user/profile");
-export const notification = async () =>
-  await axiosInstance.get("/user/notification");
+export const notification = async () => {
+  return await axiosInstance.get("/user/notification");
+};
+export const logout = async () => await axiosInstance.post("/user/logout");
 
 // personal
 export const allFriends = async () => await axiosInstance.get("/personal");
@@ -69,6 +84,8 @@ export const createGroup = async (group: group) =>
 
 export const getSingleGroup = async (id: string) =>
   await axiosInstance.post(`/group/${id}`);
+
+export const getMyGroups = async () => await axiosInstance.get(`/group/my`);
 
 export const joinGroup = async (id: string) =>
   await axiosInstance.put(`/group/join/${id}`);

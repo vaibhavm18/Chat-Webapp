@@ -26,9 +26,7 @@ export const groupListSlice = createSlice({
         return;
       }
 
-      if (state.groups.length !== 0) {
-        return;
-      }
+      state.groups = [];
 
       payload.forEach((val) => {
         state.groups.push(val);

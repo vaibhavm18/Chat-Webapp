@@ -29,9 +29,7 @@ export const notificationSlice = createSlice({
         return;
       }
 
-      if (state.notifications.length !== 0) {
-        return;
-      }
+      state.notifications = [];
 
       payload.forEach((val) => {
         state.notifications.push({

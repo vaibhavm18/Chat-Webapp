@@ -29,10 +29,17 @@ export const userSlice = createSlice({
       if (payload.length === 0) {
         return;
       }
+
+      state.users = [];
+
       payload.forEach((val) => {
         state.users.push(val);
       });
     },
+    addUser: (state, { payload }: PayloadAction<user>) => {
+      state.users.push(payload);
+    },
+
     removeUser: (state, { payload }: PayloadAction<remove>) => {
       state.users = state.users.filter((val) => val._id !== payload._id);
     },
@@ -42,5 +49,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addUsers, removeUser, removeAllUsers } = userSlice.actions;
+export const { addUsers, addUser, removeUser, removeAllUsers } =
+  userSlice.actions;
 export default userSlice.reducer;

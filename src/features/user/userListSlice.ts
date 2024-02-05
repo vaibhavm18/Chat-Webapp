@@ -26,9 +26,7 @@ export const userListSlice = createSlice({
         return;
       }
 
-      if (state.users.length !== 0) {
-        return;
-      }
+      state.users = [];
 
       payload.forEach((val) => {
         state.users.push(val);
