@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function PersonalChat({ chatId, chatName }: Props) {
-  console.log("1");
   const dispatch = useDispatch();
   const newChats = useSelector(
     (state: RootState) => state.personalChats.newChats[chatId]
@@ -25,7 +24,7 @@ export default function PersonalChat({ chatId, chatName }: Props) {
   );
 
   const { data, isLoading } = useQuery({
-    queryKey: ["personalChat", chatId],
+    queryKey: ["personal chat", chatId],
     retry: 1,
     staleTime: Infinity,
     queryFn: async () => await getChats(chatId),
@@ -36,20 +35,16 @@ export default function PersonalChat({ chatId, chatName }: Props) {
     mutationKey: ["sendChat", chatId],
     mutationFn: async ({ message, id }: { message: string; id: string }) =>
       await sendPersonalMessage(id, message),
+    onSuccess(data, _variables, _context) {
+      dispatch(addNewChat({ chatId, message: data.data.data }));
+    },
   });
 
   useEffect(() => {
     if (data) {
-      console.log(data.data.data);
       if (!oldChats) dispatch(addOldChats({ chatId, message: data.data.data }));
     }
   }, [data]);
-
-  useEffect(() => {
-    if (mutation.data) {
-      dispatch(addNewChat({ chatId, message: mutation.data.data.data }));
-    }
-  }, [mutation.data]);
 
   function sendMessage(chatId: string, message: string) {
     mutation.mutateAsync({ id: chatId, message });

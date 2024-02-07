@@ -55,7 +55,6 @@ export default function Register() {
   });
 
   const onSubmit = (value: registerType) => {
-    console.log(value);
     mutation.mutate(value);
   };
 

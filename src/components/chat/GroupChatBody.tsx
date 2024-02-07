@@ -29,7 +29,6 @@ export default function GroupChatBody({ newChats, oldChats }: Props) {
     <div className="flex-grow bg-[#222436] rounded-2xl relative py-3 px-2 overflow-auto">
       <div className="absolute left-0 top-0 bottom-0 right-0 px-4 py-2 ">
         <div className="flex flex-col gap-4">
-          <div className="h-10"></div>
           {oldChats &&
             oldChats.map((val) => (
               <Bubble

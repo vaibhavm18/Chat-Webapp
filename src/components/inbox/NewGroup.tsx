@@ -7,9 +7,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { singleGroup } from "@/features/group/groupSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import {
@@ -43,6 +45,7 @@ const defaultValues = {
 const formField = ["group_name", "category"] as const;
 
 export default function NewGroup() {
+  const dispatch = useDispatch();
   const form = useForm<groupType>({
     resolver: zodResolver(groupSchema),
     defaultValues,
@@ -55,7 +58,7 @@ export default function NewGroup() {
     onSuccess: (data) => {
       form.setValue("category", "");
       form.setValue("group_name", "");
-      // dispatch(setCredential(data.data));
+      dispatch(singleGroup(data.data.data));
     },
     onError: (error: { response: { data: { message: string } } }) => {
       const e = error.response.data.message;
@@ -67,8 +70,9 @@ export default function NewGroup() {
   });
 
   const onSubmit = (value: groupType) => {
-    mutation.mutate(value);
+    mutation.mutateAsync(value);
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>

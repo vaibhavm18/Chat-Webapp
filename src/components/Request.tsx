@@ -17,7 +17,6 @@ export const Request = ({ username, id }: Props) => {
     mutationKey: ["Accept", id],
     mutationFn: async (id: string) => await acceptFriendRequest(id),
     onSuccess(data) {
-      console.log(data);
       dispatch(removeNotification({ id }));
       dispatch(addUser(data.data.data.friend));
     },
@@ -27,7 +26,6 @@ export const Request = ({ username, id }: Props) => {
     mutationKey: ["Decline", id],
     mutationFn: async (id: string) => await declineFriendRequest(id),
     onSuccess(data) {
-      console.log(data);
       dispatch(removeNotification({ id }));
     },
   });

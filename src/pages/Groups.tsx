@@ -24,7 +24,6 @@ export default function Groups() {
 
   useEffect(() => {
     if (data) {
-      console.log(data.data.data);
       dispatch(addGroups(data.data.data));
     }
   }, [data, isError]);

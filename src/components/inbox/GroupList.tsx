@@ -31,7 +31,6 @@ export default function GroupList({ hideGroupList }: Props) {
     mutationKey: ["AddGroup"],
     mutationFn: async (id: string) => await joinGroup(id),
     onSuccess(data) {
-      console.log(data.data.data);
       dispatch(
         singleGroup({ _id: data.data.data._id, name: data.data.data.name })
       );
@@ -41,7 +40,6 @@ export default function GroupList({ hideGroupList }: Props) {
 
   useEffect(() => {
     if (data) {
-      console.log("sdfdf");
       dispatch(addGroupLists(data.data.data));
     }
 

@@ -24,6 +24,9 @@ export default function UserList({ hidePersonalList }: Props) {
   const mutation = useMutation({
     mutationKey: ["SendRequest"],
     mutationFn: async (id: string) => await friendRequest(id),
+    onSuccess(data, variables, context) {
+      dispatch(removeListUser({ _id: data.data?.data.request.to }));
+    },
   });
 
   useEffect(() => {
@@ -32,14 +35,8 @@ export default function UserList({ hidePersonalList }: Props) {
     }
   }, [data, isLoading]);
 
-  useEffect(() => {
-    if (mutation.isSuccess) {
-      dispatch(removeListUser({ _id: mutation.data.data?.data.request.to }));
-    }
-  }, [mutation.isSuccess]);
   const addToPersonal = (id: string) => {
     mutation.mutateAsync(id);
-    console.log(mutation.data);
   };
 
   return (

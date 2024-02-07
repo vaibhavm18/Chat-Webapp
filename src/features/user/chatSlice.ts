@@ -45,6 +45,11 @@ const personalChatSlice = createSlice({
         state.newChats[payload.chatId] = [payload.message];
       }
     },
+    addSocketChat: (state, { payload }: PayloadAction<singleMessage>) => {
+      if (payload.chatId in state.newChats) {
+        state.newChats[payload.chatId].push(payload.message);
+      }
+    },
     addOldChats: (state, { payload }: PayloadAction<messageArray>) => {
       if (payload.message.length === 0) {
         return;

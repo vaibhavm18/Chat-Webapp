@@ -37,6 +37,7 @@ const groupChatSlice = createSlice({
         state.newChats[payload[0].groupId] = [];
       }
 
+      state.newChats[payload[0].groupId] = [];
       payload.forEach((val) => {
         state.newChats[payload[0].groupId].push(val);
       });

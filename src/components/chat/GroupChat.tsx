@@ -1,7 +1,7 @@
-import { getGroupMessage } from "@/api";
+import { getGroupMessage, sendGroupMessage } from "@/api";
 import { RootState } from "@/app/store";
 import { addNewChat, addOldChats } from "@/features/group/chatSlice";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ChatHeader from "./ChatHeader";
@@ -30,26 +30,24 @@ export default function GroupChat({ chatId, chatName }: Props) {
     staleTime: Infinity,
   });
 
+  const mutation = useMutation({
+    mutationKey: ["send group chat", chatId],
+    retry: 1,
+    mutationFn: async ({ id, message }: { id: string; message: string }) =>
+      await sendGroupMessage(id, message),
+    onSuccess(data, _v, _context) {
+      dispatch(addNewChat(data.data.data));
+    },
+  });
+
   useEffect(() => {
     if (data) {
-      console.log(data.data.data);
       dispatch(addOldChats(data.data.data));
     }
   }, [data]);
 
   function sendChat(chatId: string, message: string) {
-    dispatch(
-      addNewChat({
-        _id: Math.random().toString(),
-        message: message,
-        createdAt: Date.now().toString(),
-        groupId: chatId,
-        sender: {
-          _id: "123445",
-          username: "vaibhav",
-        },
-      })
-    );
+    mutation.mutateAsync({ id: chatId, message });
   }
 
   return (

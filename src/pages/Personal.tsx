@@ -37,7 +37,6 @@ export default function Personal() {
     dispatch(chatOpen());
   };
 
-  console.log(users);
   return (
     <>
       {!userListOpen ? (
