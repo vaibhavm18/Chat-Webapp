@@ -14,15 +14,15 @@ export default function ChatRoom() {
         No Chat Available
       </p>
     );
+  } else {
+    return (
+      <>
+        {typeOfChat === "Group" ? (
+          <GroupChat chatId={id} chatName={name} />
+        ) : (
+          <PersonalChat chatId={id} chatName={name} />
+        )}
+      </>
+    );
   }
-
-  return (
-    <>
-      {typeOfChat === "Group" ? (
-        <GroupChat chatId={id} chatName={name} />
-      ) : (
-        <PersonalChat chatId={id} chatName={name} />
-      )}
-    </>
-  );
 }

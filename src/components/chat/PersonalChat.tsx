@@ -1,6 +1,7 @@
-import { getChats, sendPersonalMessage } from "@/api";
+import { getChats, removeFriend, sendPersonalMessage } from "@/api";
 import { RootState } from "@/app/store";
 import { addNewChat, addOldChats } from "@/features/user/chatSlice";
+import { removeUser } from "@/features/user/userSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,9 +51,18 @@ export default function PersonalChat({ chatId, chatName }: Props) {
     mutation.mutateAsync({ id: chatId, message });
   }
 
+  function removeFromList(id: any) {
+    dispatch(removeUser({ _id: id }));
+  }
+
   return (
-    <div className="flex flex-col gap-3 h-full ">
-      <ChatHeader username={chatName} id={chatId} />
+    <div className="flex flex-col gap-3 h-full relative ">
+      <ChatHeader
+        removeFromList={removeFromList}
+        leave={removeFriend}
+        username={chatName}
+        id={chatId}
+      />
       <ChatBody isLoading={isLoading} newChats={newChats} oldChats={oldChats} />
       <Input chatId={chatId} sendMessage={sendMessage} />
     </div>

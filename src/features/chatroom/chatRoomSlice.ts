@@ -21,8 +21,13 @@ const chatRoomSlice = createSlice({
       state.typeOfChat = payload.typeOfChat;
       state.name = payload.name;
     },
+    removeChatRoom: (state) => {
+      state.id = null;
+      state.name = null;
+      state.typeOfChat = "Group";
+    },
   },
 });
 
-export const { setChatRoom } = chatRoomSlice.actions;
+export const { setChatRoom, removeChatRoom } = chatRoomSlice.actions;
 export default chatRoomSlice.reducer;

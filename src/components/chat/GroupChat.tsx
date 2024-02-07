@@ -1,6 +1,7 @@
-import { getGroupMessage, sendGroupMessage } from "@/api";
+import { getGroupMessage, leaveGroup, sendGroupMessage } from "@/api";
 import { RootState } from "@/app/store";
 import { addNewChat, addOldChats } from "@/features/group/chatSlice";
+import { removeGroup } from "@/features/group/groupSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,9 +51,18 @@ export default function GroupChat({ chatId, chatName }: Props) {
     mutation.mutateAsync({ id: chatId, message });
   }
 
+  function removeFromList(id: any) {
+    dispatch(removeGroup({ _id: id }));
+  }
+
   return (
-    <div className="flex flex-col gap-3 h-full ">
-      <ChatHeader username={chatName} id={chatId} />
+    <div className="flex flex-col gap-3 h-full  ">
+      <ChatHeader
+        removeFromList={removeFromList}
+        leave={leaveGroup}
+        username={chatName}
+        id={chatId}
+      />
       <GroupChatBody
         newChats={newChats}
         oldChats={oldChats}

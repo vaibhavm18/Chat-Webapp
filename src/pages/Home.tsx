@@ -23,7 +23,7 @@ export const Home = () => {
               <Outlet />
             </div>
             <div
-              className={`bg-[#1e2030] ${
+              className={`bg-[#1e2030] relative ${
                 !isHidden ? "hidden" : "h-full"
               } lg:block col-span-5 rounded-xl p-2 `}
             >

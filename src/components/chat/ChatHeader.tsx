@@ -1,61 +1,75 @@
+import { removeChatRoom } from "@/features/chatroom/chatRoomSlice";
 import { closeChat } from "@/features/responsive/responsiveSlice";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@radix-ui/react-alert-dialog";
+import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import { Profile } from "../Profile";
 import ProfilePhoto from "../ProfilePhoto";
-import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
+import Exist from "./Exist";
 
 type Props = {
   username: string;
   id: string;
+  leave: (id: string) => Promise<AxiosResponse<any, any>>;
+  removeFromList: (data: any) => void;
 };
-export default function ChatHeader({ username, id }: Props) {
+export default function ChatHeader({
+  username,
+  id,
+  leave,
+  removeFromList,
+}: Props) {
   const dispatch = useDispatch();
-
   const hideChat = () => {
     dispatch(closeChat());
   };
+
+  const mutation = useMutation({
+    mutationKey: ["exit group"],
+    retry: 1,
+    mutationFn: async (id: string) => await leave(id),
+    onSuccess() {
+      removeChatRoom();
+      removeFromList(id);
+    },
+    onError(error: { response: { data: { message: string } } }) {
+      const e = error.response.data.message;
+      toast.error(e, {
+        position: "top-center",
+        className: "bg-[#222436] text-white",
+      });
+    },
+  });
+
+  const onPress = () => {
+    mutation.mutateAsync(id);
+  };
+
   return (
-    <div className="relative py-2 px-2 text-sm  xs:text-lg flex gap-3 sm:gap-6 items-center bg-[#222436] rounded-2xl ">
-      <Profile>
-        <ProfilePhoto />
-      </Profile>
-      <span>{username}</span>
-      <AlertDialog>
-        <span className="absolute right-4 flex gap-6">
-          <Button variant={"ghost"} onClick={hideChat} className="lg:hidden">
-            <IoMdArrowRoundBack />
-          </Button>
-          <AlertDialogTrigger>
-            <MdOutlineLogout className={"text-lg"} />
-          </AlertDialogTrigger>
-        </span>
-        <AlertDialogContent className="bg-[#1e2030] border border-white rounded-2xl absolute right-8">
-          <AlertDialogHeader className="p-2 ">
-            <AlertDialogTitle className="text-center">
-              Are you sure ?
-            </AlertDialogTitle>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="px-4 py-2">
-            <AlertDialogAction className="bg-green-500 px-2 rounded-2xl">
-              Continue
-            </AlertDialogAction>
-            <AlertDialogCancel className="bg-red-500 px-2 rounded-2xl">
-              Cancel
-            </AlertDialogCancel>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+    <>
+      <ToastContainer />
+      <div className="py-2 px-2 text-sm  xs:text-lg flex gap-3 sm:gap-6 items-center bg-[#222436] rounded-2xl ">
+        <Profile>
+          <ProfilePhoto />
+        </Profile>
+        <span>{username}</span>
+        <AlertDialog>
+          <span className="absolute right-4 flex gap-6">
+            <Button variant={"ghost"} onClick={hideChat} className="lg:hidden">
+              <IoMdArrowRoundBack />
+            </Button>
+            <AlertDialogTrigger>
+              <MdOutlineLogout className={"text-lg"} />
+            </AlertDialogTrigger>
+          </span>
+          <Exist onPress={onPress} />
+        </AlertDialog>
+      </div>
+    </>
   );
 }

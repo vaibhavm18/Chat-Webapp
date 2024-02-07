@@ -96,7 +96,7 @@ export const removeGroupMember = async (groupId: string, userId: string) =>
 export const deleteGroupMember = async (id: string) =>
   await axiosInstance.post(`/group/delete/${id}`);
 
-export const leaveGroupMember = async (id: string) =>
+export const leaveGroup = async (id: string) =>
   await axiosInstance.post(`/group/leave/${id}`);
 
 export const sendGroupMessage = async (id: string, message: string) =>
