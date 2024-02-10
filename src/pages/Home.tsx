@@ -2,11 +2,20 @@ import { RootState } from "@/app/store";
 import Headers from "@/components/Headers";
 import ChatRoom from "@/components/chat/ChatRoom";
 import InboxHeder from "@/components/inbox/InboxHeader";
+import { useSocket } from "@/context/SocketProvider";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 export const Home = () => {
   const isHidden = useSelector((state: RootState) => state.responsive.chatOpen);
+  const id = useSelector((state: RootState) => state.auth._id);
+
+  const socket = useSocket();
+
+  useEffect(() => {
+    socket?.emit("join user", id);
+  }, [socket]);
 
   return (
     <main className="bg-[#1e2030] h-[94vh] lg:h-screen text-[#BCD1EF] px-4 py-6 ">

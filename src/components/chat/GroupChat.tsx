@@ -1,5 +1,6 @@
 import { getGroupMessage, leaveGroup, sendGroupMessage } from "@/api";
 import { RootState } from "@/app/store";
+import { useSocket } from "@/context/SocketProvider";
 import { addNewChat, addOldChats } from "@/features/group/chatSlice";
 import { removeGroup } from "@/features/group/groupSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -16,6 +17,7 @@ type Props = {
 
 export default function GroupChat({ chatId, chatName }: Props) {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const newChats = useSelector(
     (state: RootState) => state.groupChats.newChats[chatId]
   );
@@ -38,6 +40,7 @@ export default function GroupChat({ chatId, chatName }: Props) {
       await sendGroupMessage(id, message),
     onSuccess(data, _v, _context) {
       dispatch(addNewChat(data.data.data));
+      socket?.emit("group message", data.data.data);
     },
   });
 

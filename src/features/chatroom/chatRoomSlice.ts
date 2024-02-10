@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type ChatRoomState = {
-  typeOfChat: "Group" | "Personal";
+  typeOfChat: "Group" | "Personal" | null;
   id: string | null;
   name: string | null;
 };
@@ -9,7 +9,7 @@ type ChatRoomState = {
 const initialState: ChatRoomState = {
   id: null,
   name: null,
-  typeOfChat: "Personal",
+  typeOfChat: null,
 };
 
 const chatRoomSlice = createSlice({
@@ -22,9 +22,10 @@ const chatRoomSlice = createSlice({
       state.name = payload.name;
     },
     removeChatRoom: (state) => {
+      console.log("Hello God!");
       state.id = null;
       state.name = null;
-      state.typeOfChat = "Group";
+      state.typeOfChat = null;
     },
   },
 });

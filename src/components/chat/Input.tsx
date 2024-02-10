@@ -15,6 +15,7 @@ export default function Input({ chatId, sendMessage }: Props) {
     }
     setValue(e.target.value);
   };
+
   return (
     <div className="w-full  flex gap-3 py-2 px-4 bg-[#222436] rounded-xl items-center">
       <input

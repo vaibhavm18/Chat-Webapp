@@ -1,4 +1,5 @@
 import { acceptFriendRequest, declineFriendRequest } from "@/api";
+import { useSocket } from "@/context/SocketProvider";
 import { removeNotification } from "@/features/notification/notificationSlice";
 import { addUser } from "@/features/user/userSlice";
 import { useMutation } from "@tanstack/react-query";
@@ -13,10 +14,12 @@ type Props = {
 
 export const Request = ({ username, id }: Props) => {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const accept = useMutation({
     mutationKey: ["Accept", id],
     mutationFn: async (id: string) => await acceptFriendRequest(id),
     onSuccess(data) {
+      socket?.emit("accept friend request", data.data.data.friend);
       dispatch(removeNotification({ id }));
       dispatch(addUser(data.data.data.friend));
     },

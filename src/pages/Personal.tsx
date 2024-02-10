@@ -4,8 +4,10 @@ import Loader from "@/components/Loader";
 import Preview from "@/components/inbox/Preview";
 import UserList from "@/components/inbox/UserList";
 import { Button } from "@/components/ui/button";
+import { useSocket } from "@/context/SocketProvider";
 import { setChatRoom } from "@/features/chatroom/chatRoomSlice";
 import { chatOpen } from "@/features/responsive/responsiveSlice";
+import { addNewChat } from "@/features/user/chatSlice";
 import { addUsers } from "@/features/user/userSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -13,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Personal() {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const users = useSelector((state: RootState) => state.personal.users);
 
   const { data, isLoading, refetch } = useQuery({
@@ -37,6 +40,11 @@ export default function Personal() {
     dispatch(chatOpen());
   };
 
+  useEffect(() => {
+    socket?.on("personal chat", (data: any) => {
+      dispatch(addNewChat({ chatId: data.sender._id, message: data }));
+    });
+  }, []);
   return (
     <>
       {!userListOpen ? (

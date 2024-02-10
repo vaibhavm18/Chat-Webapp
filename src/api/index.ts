@@ -85,7 +85,8 @@ export const createGroup = async (group: group) =>
 export const getSingleGroup = async (id: string) =>
   await axiosInstance.post(`/group/${id}`);
 
-export const getMyGroups = async () => await axiosInstance.get(`/group/my`);
+export const getMyGroups = async () =>
+  (await axiosInstance.get(`/group/my`)).data;
 
 export const joinGroup = async (id: string) =>
   await axiosInstance.put(`/group/join/${id}`);

@@ -1,4 +1,4 @@
-import { removeChatRoom } from "@/features/chatroom/chatRoomSlice";
+import { setChatRoom } from "@/features/chatroom/chatRoomSlice";
 import { closeChat } from "@/features/responsive/responsiveSlice";
 import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { useMutation } from "@tanstack/react-query";
@@ -34,7 +34,7 @@ export default function ChatHeader({
     retry: 1,
     mutationFn: async (id: string) => await leave(id),
     onSuccess() {
-      removeChatRoom();
+      dispatch(setChatRoom({ id: null, name: null, typeOfChat: null }));
       removeFromList(id);
     },
     onError(error: { response: { data: { message: string } } }) {

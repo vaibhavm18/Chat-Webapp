@@ -5,16 +5,26 @@ import GroupList from "@/components/inbox/GroupList";
 import NewGroup from "@/components/inbox/NewGroup";
 import Preview from "@/components/inbox/Preview";
 import { Button } from "@/components/ui/button";
+import { useSocket } from "@/context/SocketProvider";
 import { setChatRoom } from "@/features/chatroom/chatRoomSlice";
+import { addNewChat } from "@/features/group/chatSlice";
 import { addGroups } from "@/features/group/groupSlice";
 import { chatOpen } from "@/features/responsive/responsiveSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+type data = {
+  data: {
+    name: string;
+    _id: string;
+  }[];
+};
 export default function Groups() {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const groups = useSelector((state: RootState) => state.group.groups);
+  const id = useSelector((state: RootState) => state.auth._id);
   const { data, isError, isLoading, refetch } = useQuery({
     queryKey: ["groups"],
     staleTime: Infinity,
@@ -24,7 +34,13 @@ export default function Groups() {
 
   useEffect(() => {
     if (data) {
-      dispatch(addGroups(data.data.data));
+      dispatch(addGroups(data.data));
+      const groups = data as data;
+      const groupIds = groups.data.map((val) => val._id);
+      socket?.emit("join groups", {
+        userId: id,
+        groupIds,
+      });
     }
   }, [data, isError]);
 
@@ -38,6 +54,11 @@ export default function Groups() {
     dispatch(chatOpen());
   };
 
+  useEffect(() => {
+    socket?.on("group message", (data: any) => {
+      dispatch(addNewChat(data));
+    });
+  }, []);
   return (
     <>
       {!openList ? (

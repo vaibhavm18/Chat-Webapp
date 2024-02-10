@@ -40,6 +40,14 @@ const personalChatSlice = createSlice({
   reducers: {
     addNewChat: (state, { payload }: PayloadAction<singleMessage>) => {
       if (payload.chatId in state.newChats) {
+        if (
+          payload.message._id ===
+          state.newChats[payload.chatId][
+            state.newChats[payload.chatId].length - 1
+          ]._id
+        ) {
+          return;
+        }
         state.newChats[payload.chatId].push(payload.message);
       } else {
         state.newChats[payload.chatId] = [payload.message];

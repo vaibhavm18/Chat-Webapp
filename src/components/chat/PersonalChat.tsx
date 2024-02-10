@@ -1,5 +1,6 @@
 import { getChats, removeFriend, sendPersonalMessage } from "@/api";
 import { RootState } from "@/app/store";
+import { useSocket } from "@/context/SocketProvider";
 import { addNewChat, addOldChats } from "@/features/user/chatSlice";
 import { removeUser } from "@/features/user/userSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -16,6 +17,7 @@ type Props = {
 
 export default function PersonalChat({ chatId, chatName }: Props) {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const newChats = useSelector(
     (state: RootState) => state.personalChats.newChats[chatId]
   );
@@ -38,6 +40,7 @@ export default function PersonalChat({ chatId, chatName }: Props) {
       await sendPersonalMessage(id, message),
     onSuccess(data, _variables, _context) {
       dispatch(addNewChat({ chatId, message: data.data.data }));
+      socket?.emit("personal chat", data.data.data);
     },
   });
 

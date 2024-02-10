@@ -1,5 +1,6 @@
 import { friendRequest, getAllUsers } from "@/api";
 import { RootState } from "@/app/store";
+import { useSocket } from "@/context/SocketProvider";
 import { addListUsers, removeListUser } from "@/features/user/userListSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -12,6 +13,7 @@ type Props = {
 };
 export default function UserList({ hidePersonalList }: Props) {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const users = useSelector((state: RootState) => state.userList.users);
 
   const { isLoading, data, refetch } = useQuery({
@@ -25,6 +27,7 @@ export default function UserList({ hidePersonalList }: Props) {
     mutationKey: ["SendRequest"],
     mutationFn: async (id: string) => await friendRequest(id),
     onSuccess(data, variables, context) {
+      socket?.emit("friend request", data.data.data.request.senderId);
       dispatch(removeListUser({ _id: data.data?.data.request.to }));
     },
   });

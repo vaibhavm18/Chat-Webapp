@@ -23,6 +23,14 @@ const groupChatSlice = createSlice({
   reducers: {
     addNewChat: (state, { payload }: PayloadAction<GroupMessage>) => {
       if (payload.groupId in state.newChats) {
+        if (
+          payload._id ===
+          state.newChats[payload.groupId][
+            state.newChats[payload.groupId].length - 1
+          ]._id
+        ) {
+          return;
+        }
         state.newChats[payload.groupId].push(payload);
       } else {
         state.newChats[payload.groupId] = [payload];

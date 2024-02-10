@@ -1,5 +1,6 @@
 import { notification } from "@/api";
 import { RootState } from "@/app/store";
+import { useSocket } from "@/context/SocketProvider";
 import { addNotifications } from "@/features/notification/notificationSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -16,6 +17,7 @@ import {
 
 export const Notification = () => {
   const dispatch = useDispatch();
+  const socket = useSocket();
 
   const notifications = useSelector(
     (state: RootState) => state.notification.notifications
@@ -30,9 +32,17 @@ export const Notification = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(addNotifications(data.data.data));
+      dispatch(addNotifications(data.data?.data));
     }
   }, [data, isLoading]);
+
+  useEffect(() => {
+    socket?.on("friend request", (data: any) => {
+      console.log(data);
+      dispatch(addNotifications(data));
+    });
+  }, []);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
