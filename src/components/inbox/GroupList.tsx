@@ -1,15 +1,10 @@
-import { allGroups, joinGroup } from "@/api";
+import { joinGroup } from "@/api";
 import { RootState } from "@/app/store";
-import {
-  addGroupLists,
-  removeGroupList,
-} from "@/features/group/groupListSlice";
+import { removeGroupList } from "@/features/group/groupListSlice";
 import { singleGroup } from "@/features/group/groupSlice";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import Loader from "../Loader";
+import { ToastContainer } from "react-toastify";
 import { Button } from "../ui/button";
 import Preview from "./Preview";
 
@@ -19,13 +14,6 @@ type Props = {
 
 export default function GroupList({ hideGroupList }: Props) {
   const dispatch = useDispatch();
-
-  const { isLoading, isError, data, refetch } = useQuery({
-    queryKey: ["groupList"],
-    queryFn: async () => await allGroups(),
-    staleTime: Infinity,
-    retry: 0,
-  });
 
   const mutation = useMutation({
     mutationKey: ["AddGroup"],
@@ -38,19 +26,6 @@ export default function GroupList({ hideGroupList }: Props) {
     },
   });
 
-  useEffect(() => {
-    if (data) {
-      dispatch(addGroupLists(data.data.data));
-    }
-
-    if (isError) {
-      toast.error("Could not load the groups List", {
-        position: "top-center",
-        className: "bg-[#222436] text-white",
-      });
-    }
-  }, [data, isError]);
-
   const addToGroup = (id: string) => {
     mutation.mutateAsync(id);
   };
@@ -61,7 +36,10 @@ export default function GroupList({ hideGroupList }: Props) {
       <ToastContainer />
       <div className=" flex-grow bg-[#222436] rounded-lg relative overflow-auto py-4">
         <div className="absolute  m-2 left-0 right-0 top-0 grid grid-cols-1 gap-2 ">
-          {isLoading && <Loader />}
+          {!groups ||
+            (groups.length === 0 && (
+              <p className="text-center text-xl">No Groups.</p>
+            ))}
           {groups.map((val) => (
             <Preview
               _id={val._id}
@@ -78,14 +56,6 @@ export default function GroupList({ hideGroupList }: Props) {
               onClick={hideGroupList}
             >
               Back
-            </Button>
-            <Button
-              className="w-full rounded-xl text-lg  bg-gray-400 hover:bg-gray-300 text-black"
-              onClick={() => {
-                refetch();
-              }}
-            >
-              Refresh
             </Button>
           </div>
         </div>

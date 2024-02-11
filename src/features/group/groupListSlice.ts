@@ -47,6 +47,10 @@ export const groupListSlice = createSlice({
   },
 });
 
-export const { addGroupLists, removeGroupList, removeAllGroupList } =
-  groupListSlice.actions;
+export const {
+  addGroupLists,
+  addGroupList,
+  removeGroupList,
+  removeAllGroupList,
+} = groupListSlice.actions;
 export default groupListSlice.reducer;

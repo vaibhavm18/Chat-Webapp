@@ -16,7 +16,7 @@ type Props = {
   username: string;
   id: string;
   leave: (id: string) => Promise<AxiosResponse<any, any>>;
-  removeFromList: (data: any) => void;
+  removeFromList: (id: string, username: string) => void;
 };
 export default function ChatHeader({
   username,
@@ -34,8 +34,9 @@ export default function ChatHeader({
     retry: 1,
     mutationFn: async (id: string) => await leave(id),
     onSuccess() {
+      removeFromList(id, username);
       dispatch(setChatRoom({ id: null, name: null, typeOfChat: null }));
-      removeFromList(id);
+      // socket?.emit()
     },
     onError(error: { response: { data: { message: string } } }) {
       const e = error.response.data.message;

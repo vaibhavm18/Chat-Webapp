@@ -32,6 +32,14 @@ export const userListSlice = createSlice({
         state.users.push(val);
       });
     },
+
+    singleUserList: (state, { payload }: PayloadAction<user>) => {
+      if (state.users[state.users.length - 1]._id === payload._id) {
+        return;
+      }
+      state.users.push(payload);
+    },
+
     removeListUser: (state, { payload }: PayloadAction<remove>) => {
       state.users = state.users.filter((val) => val._id !== payload._id);
     },
@@ -41,7 +49,11 @@ export const userListSlice = createSlice({
   },
 });
 
-export const { addListUsers, removeListUser, removeAllListUsers } =
-  userListSlice.actions;
+export const {
+  addListUsers,
+  singleUserList,
+  removeListUser,
+  removeAllListUsers,
+} = userListSlice.actions;
 
 export default userListSlice.reducer;

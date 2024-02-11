@@ -40,6 +40,11 @@ export const notificationSlice = createSlice({
     },
 
     addNotification: (state, { payload }: PayloadAction<input>) => {
+      if (
+        state.notifications[state.notifications.length - 1]?._id === payload._id
+      ) {
+        return;
+      }
       state.notifications.push({
         _id: payload._id,
         username: payload.senderId.username,
@@ -54,6 +59,6 @@ export const notificationSlice = createSlice({
   },
 });
 
-export const { addNotifications, removeNotification } =
+export const { addNotifications, addNotification, removeNotification } =
   notificationSlice.actions;
 export default notificationSlice.reducer;

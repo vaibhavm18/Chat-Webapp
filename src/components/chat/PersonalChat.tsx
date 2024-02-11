@@ -2,6 +2,7 @@ import { getChats, removeFriend, sendPersonalMessage } from "@/api";
 import { RootState } from "@/app/store";
 import { useSocket } from "@/context/SocketProvider";
 import { addNewChat, addOldChats } from "@/features/user/chatSlice";
+import { singleUserList } from "@/features/user/userListSlice";
 import { removeUser } from "@/features/user/userSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -18,6 +19,9 @@ type Props = {
 export default function PersonalChat({ chatId, chatName }: Props) {
   const dispatch = useDispatch();
   const socket = useSocket();
+  const { _id, username: personalName } = useSelector(
+    (state: RootState) => state.auth
+  );
   const newChats = useSelector(
     (state: RootState) => state.personalChats.newChats[chatId]
   );
@@ -54,8 +58,10 @@ export default function PersonalChat({ chatId, chatName }: Props) {
     mutation.mutateAsync({ id: chatId, message });
   }
 
-  function removeFromList(id: any) {
+  function removeFromList(id: string, username: string) {
     dispatch(removeUser({ _id: id }));
+    dispatch(singleUserList({ _id: id, username }));
+    socket?.emit("remove user", { id: _id, username: personalName, to: id });
   }
 
   return (

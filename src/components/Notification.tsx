@@ -1,7 +1,10 @@
 import { notification } from "@/api";
 import { RootState } from "@/app/store";
 import { useSocket } from "@/context/SocketProvider";
-import { addNotifications } from "@/features/notification/notificationSlice";
+import {
+  addNotification,
+  addNotifications,
+} from "@/features/notification/notificationSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { IoIosNotifications } from "react-icons/io";
@@ -38,8 +41,15 @@ export const Notification = () => {
 
   useEffect(() => {
     socket?.on("friend request", (data: any) => {
-      console.log(data);
-      dispatch(addNotifications(data));
+      dispatch(
+        addNotification({
+          _id: data.request._id,
+          senderId: {
+            _id: data.request.senderId._id,
+            username: data.request.senderId.username,
+          },
+        })
+      );
     });
   }, []);
 

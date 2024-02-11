@@ -2,6 +2,7 @@ import { getGroupMessage, leaveGroup, sendGroupMessage } from "@/api";
 import { RootState } from "@/app/store";
 import { useSocket } from "@/context/SocketProvider";
 import { addNewChat, addOldChats } from "@/features/group/chatSlice";
+import { addGroupList } from "@/features/group/groupListSlice";
 import { removeGroup } from "@/features/group/groupSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -54,12 +55,13 @@ export default function GroupChat({ chatId, chatName }: Props) {
     mutation.mutateAsync({ id: chatId, message });
   }
 
-  function removeFromList(id: any) {
+  function removeFromList(id: string, username: string) {
     dispatch(removeGroup({ _id: id }));
+    dispatch(addGroupList({ _id: id, name: username }));
   }
 
   return (
-    <div className="flex flex-col gap-3 h-full  ">
+    <div className="flex flex-col gap-3 h-full">
       <ChatHeader
         removeFromList={removeFromList}
         leave={leaveGroup}

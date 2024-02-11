@@ -22,7 +22,6 @@ const chatRoomSlice = createSlice({
       state.name = payload.name;
     },
     removeChatRoom: (state) => {
-      console.log("Hello God!");
       state.id = null;
       state.name = null;
       state.typeOfChat = null;

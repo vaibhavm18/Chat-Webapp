@@ -30,13 +30,18 @@ export const userSlice = createSlice({
         return;
       }
 
-      state.users = [];
+      if (state.users.length !== 0) {
+        return;
+      }
 
       payload.forEach((val) => {
         state.users.push(val);
       });
     },
     addUser: (state, { payload }: PayloadAction<user>) => {
+      if (state.users[state.users.length - 1]?._id === payload?._id) {
+        return;
+      }
       state.users.push(payload);
     },
 

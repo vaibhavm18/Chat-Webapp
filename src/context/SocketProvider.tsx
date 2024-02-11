@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useMemo } from "react";
 import { Socket, io } from "socket.io-client";
 
-type SocketType = Socket<any, any> | null;
+export type SocketType = Socket<any, any> | null;
 const SocketContext = createContext<SocketType>(null);
 
 export const useSocket = () => {
