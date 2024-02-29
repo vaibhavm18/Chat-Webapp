@@ -13,7 +13,7 @@ type Props = {
   children: ReactNode;
 };
 export const SocketProvider = (props: Props) => {
-  const socket = useMemo(() => io("localhost:5000/"), []);
+  const socket = useMemo(() => io("https://chatapp.vaibhavnayak.com/"), []);
 
   return (
     <SocketContext.Provider value={socket}>
