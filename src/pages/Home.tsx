@@ -9,13 +9,14 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-type data = {
-  data: {
-    name: string;
-    _id: string;
-  }[];
-};
-export const Home = () => {
+// type data = {
+//   data: {
+//     name: string;
+//     _id: string;
+//   }[];
+// };
+
+export default function Home() {
   const isHidden = useSelector((state: RootState) => state.responsive.chatOpen);
   const id = useSelector((state: RootState) => state.auth._id);
 
@@ -53,4 +54,4 @@ export const Home = () => {
       </section>
     </main>
   );
-};
+}
