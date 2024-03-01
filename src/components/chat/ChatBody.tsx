@@ -29,11 +29,7 @@ export default function ChatBody({ newChats, oldChats, isLoading }: Props) {
     <div className="flex-grow bg-[#222436] rounded-2xl relative py-3 px-2 overflow-auto">
       <div className="absolute left-0 top-0 bottom-0 right-0 px-4 py-2 ">
         <div className="flex flex-col gap-4 relative">
-          {isLoading && (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-              <Loader />
-            </div>
-          )}
+          {isLoading && <Loader />}
           {oldChats &&
             oldChats.map((val) => (
               <Bubble

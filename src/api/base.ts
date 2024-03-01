@@ -2,11 +2,11 @@ import axios from "axios";
 
 // const API_BASE_URL = "https://social-dc1i.onrender.com/api/v1";
 
-const API_BASE_URL =
-  import.meta.env.VITE_URL || "https://chatapp.vaibhavnayak.com/api/v1";
+const API_BASE_URL = import.meta.env.VITE_URL;
+console.log(API_BASE_URL);
 
 export const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL + "/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
@@ -22,5 +22,5 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );

@@ -22,19 +22,6 @@ export const signup = async (data: signup) => {
   return res.data;
 };
 
-// async function createUsers(n: number) {
-//   for (let i = 0; i < n; i++) {
-//     console.log("hello", i);
-//     await signup({
-//       email: "vaibhav60" + i + "@gmail.com",
-//       password: "123456",
-//       username: "vaibhav60" + i,
-//     });
-//   }
-// }
-
-// createUsers(9);
-
 export const authenticate = async () => {
   const res = await axiosInstance.get("/auth/authenticate");
   return res.data;
