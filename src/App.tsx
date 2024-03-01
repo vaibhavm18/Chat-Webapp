@@ -3,7 +3,6 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { authenticate } from "./api";
-import Loader from "./components/Loader";
 import { setCredential } from "./features/auth/authSlice";
 import { Authenticate } from "./pages/Authenticate";
 import Auth from "./pages/auth/Auth";
@@ -42,7 +41,13 @@ export default function App() {
           <span className="w-16 h-16 border-l-4 border-r-4 border-red-500 animate-spin rounded-full"></span>
         </div>
       ) : (
-        <Suspense fallback={<Loader />}>
+        <Suspense
+          fallback={
+            <div className="h-screen w-screen flex items-center justify-center ">
+              <span className="w-16 h-16 border-l-4 border-r-4 border-red-500 animate-spin rounded-full"></span>
+            </div>
+          }
+        >
           <Routes>
             <Route element={<Auth />}>
               <Route path="/login" Component={Login} />
