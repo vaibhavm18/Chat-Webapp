@@ -9,12 +9,11 @@ export const useSocket = () => {
   return socket;
 };
 
-const URL = import.meta.env.VITE_URL;
 type Props = {
   children: ReactNode;
 };
 export const SocketProvider = (props: Props) => {
-  const socket = useMemo(() => io(URL + "/"), []);
+  const socket = useMemo(() => io("https://chatapp.vaibhavnayak.com/"), []);
 
   return (
     <SocketContext.Provider value={socket}>
