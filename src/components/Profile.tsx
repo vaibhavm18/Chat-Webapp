@@ -1,14 +1,15 @@
 import { ReactNode } from "react";
+import ProfilePhoto from "./ProfilePhoto";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import ProfilePhoto from "./ProfilePhoto";
+
 type Props = {
   children: ReactNode;
 };
-//nnoremap <silent> g? <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
 export const Profile = ({ children }: Props) => {
   return (
     <DropdownMenu>

@@ -4,7 +4,6 @@ import { removeNotification } from "@/features/notification/notificationSlice";
 import { addUser } from "@/features/user/userSlice";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { Profile } from "./Profile";
 import { Button } from "./ui/button";
 
 type Props = {
@@ -37,13 +36,12 @@ export const Request = ({ username, id }: Props) => {
     <div className="px-2 py-3  flex flex-col gap-4 bg-[#1e2030] border rounded-xl">
       <p>
         Accept friend request from{"  "}
-        <Profile>
-          <span className="hover:underline transition-all cursor-pointer">
-            {" "}
-            @{username}
-          </span>
-        </Profile>
-        ?
+        {/* <Profile> */}
+        <span className="hover:underline transition-all cursor-pointer">
+          {" "}
+          @{username}
+        </span>
+        {/* </Profile> */}?
       </p>
       <div className="flex justify-between">
         <Button

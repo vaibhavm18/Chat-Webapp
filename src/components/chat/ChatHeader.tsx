@@ -7,7 +7,6 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { Profile } from "../Profile";
 import ProfilePhoto from "../ProfilePhoto";
 import { Button } from "../ui/button";
 import Exist from "./Exist";
@@ -55,9 +54,9 @@ export default function ChatHeader({
     <>
       <ToastContainer />
       <div className="py-2 px-2 text-sm  xs:text-lg flex gap-3 sm:gap-6 items-center bg-[#222436] rounded-2xl ">
-        <Profile>
-          <ProfilePhoto />
-        </Profile>
+        {/* <Profile> */}
+        <ProfilePhoto />
+        {/* </Profile> */}
         <span>{username}</span>
         <AlertDialog>
           <span className="absolute right-4 flex gap-6">
